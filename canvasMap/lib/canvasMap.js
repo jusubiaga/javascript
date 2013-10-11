@@ -37,6 +37,14 @@ CanvasMap = (function(){
 		}		
 	}
 
+    CanvasMap.prototype.__defineGetter__("onAreaClickHandler",function(){
+        return this._onAreaClick;
+    });
+
+    CanvasMap.prototype.__defineSetter__("onAreaClickHandler",function(handler){
+        this._onAreaClick = handler;
+    })
+
 	CanvasMap.prototype.createContext = function(imageMapContainer, imageURL) {
 		
 		var container =  null;
@@ -131,7 +139,6 @@ CanvasMap = (function(){
 		});
 
 		// Drawing.
-		//this._canvas.addEventListener('mousemove', function(evt) {
 		this._canvas.addEventListener('mousemove', function(evt) {
 			if(self._painting)
 			{
@@ -211,7 +218,6 @@ CanvasMap = (function(){
 
                 if(self._onAreaClick != null)
                 {
-                    alert('firing event');
                     self._onAreaClick(area);
                 }
             }
@@ -420,13 +426,12 @@ CanvasMap = (function(){
         };
 	};
 
-    // Internal function to get mouse position.
+    // Internal function to get touch position.
     CanvasMap.prototype.getTouchPos = function(evt) {
         var rect = this._canvas.getBoundingClientRect();
         var touchobj = evt.changedTouches[0] // reference first touch point (ie: first finger)
         startx = parseInt(touchobj.clientX);
         starty = parseInt(touchobj.clientY);
-
 
         return {
             x: startx - rect.left,
@@ -465,12 +470,13 @@ CanvasPoint = (function(){
 
 CanvasArea = (function(){
 
-	function CanvasArea(name, startPoint, offsetPoint, desc)
+	function CanvasArea(name, startPoint, offsetPoint, desc, eventMsg)
 	{
 		this._name = name;
 		this._desc = desc;
 		this._startPoint = startPoint;
 		this._offsetPoint = offsetPoint;
+        this._eventMsg = eventMsg;
 	};
 
     CanvasArea.prototype.__defineGetter__("name",function(){

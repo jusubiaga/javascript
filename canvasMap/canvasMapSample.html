@@ -6,8 +6,12 @@
         <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
         <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.js"></script>
         <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
-        <script src="../creator/idr/html/libs/js/canvasMap.js"></script>
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>-->
+
+
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+        <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>        <script src="lib/canvasMap.js"></script>
+
     </head>
     <body>
         <div class="navbar">
@@ -17,17 +21,41 @@
         </div>
         <div id="main" class="container">
 
-            Main content here!
-
-            <div id="canvasMapContainer" style="border:1px solid #000000; width: 288px; height: 413px;"/>
+            <div id="canvasMapContainer" style="border:1px solid #000000; width: 288px; height: 413px;"></div>
 
         </div>
         <script type="text/javascript">
 
-        	$(function(){
-        		
-        	})
+            var container = null;
+        	
+            $(function(){
+        		init();
+
+        	});
             // application code here!
+
+            function init(){
+
+                // Initialize container
+                container = new CanvasMap("canvasMapContainer","http://3.bp.blogspot.com/-wOfjNCO_D8Y/TZiwZfS_qZI/AAAAAAAAA8Y/INky14zsFSI/s400/mapa-politico-argentina.gif");
+
+                // set area click handler.
+                container.onAreaClickHandler = onAreaClick;
+
+                // default Areas ..
+                defaultAreas();
+            }
+
+            function onAreaClick(area){
+                alert("Area clicked ! " + area);
+            }
+
+            function defaultAreas(){
+                p = new CanvasPoint(10,10);
+                o = new CanvasPoint(40,40);
+                area = new CanvasArea("Name", p,o,"Description");
+                container.addArea(area);
+            }
 
         </script>
     </body>
