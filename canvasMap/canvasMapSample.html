@@ -21,29 +21,54 @@
         </div>
         <div id="main" class="container">
 
-            <div id="canvasMapContainer" style="border:1px solid #000000; width: 288px; height: 413px;"></div>
+            <div>
+                <div id="canvasMapContainer1" style="border:1px solid #000000; width: 288px; height: 413px;"></div>
+                <div class="events-section"><div class="event-item" data-event="when area click do" data-symbol="item2" id="jsPlumb_1_2"><img title="when area click do" src="lightning-16.png"></div></div>
+            </div>
+
+            <!--<div id="canvasMapContainer2" style="border:1px solid #000000; width: 288px; height: 413px;"></div>-->
+
+
 
         </div>
+
         <script type="text/javascript">
 
-            var container = null;
-        	
+            var container1 = null;
+            var container2 = null;
+
             $(function(){
         		init();
-
         	});
             // application code here!
 
             function init(){
 
                 // Initialize container
-                container = new CanvasMap("canvasMapContainer","http://3.bp.blogspot.com/-wOfjNCO_D8Y/TZiwZfS_qZI/AAAAAAAAA8Y/INky14zsFSI/s400/mapa-politico-argentina.gif");
+                container1 = new CanvasMap("canvasMapContainer1","http://3.bp.blogspot.com/-wOfjNCO_D8Y/TZiwZfS_qZI/AAAAAAAAA8Y/INky14zsFSI/s400/mapa-politico-argentina.gif", {readOnly:false,hideAreas:false});
+
+//                container2 = new CanvasMap("canvasMapContainer2","http://3.bp.blogspot.com/-wOfjNCO_D8Y/TZiwZfS_qZI/AAAAAAAAA8Y/INky14zsFSI/s400/mapa-politico-argentina.gif");
 
                 // set area click handler.
-                container.onAreaClickHandler = onAreaClick;
+                container1.onAreaClickHandler = function(){
+                    alert("Container1");
+                    $("#example").popover('show');
+                };
+
+//                container2.onAreaClickHandler = function(){
+//                    alert("Container2");
+//                };
+
+                container1.onAreaCreatedHandler = function(){
+                    alert("AreaCreated1");
+                }
+
+//                container2.onAreaCreatedHandler = function(){
+//                    alert("AreaCreated2");
+//                }
 
                 // default Areas ..
-                defaultAreas();
+                //defaultAreas();
             }
 
             function onAreaClick(area){
@@ -55,6 +80,69 @@
                 o = new CanvasPoint(40,40);
                 area = new CanvasArea("Name", p,o,"Description");
                 container.addArea(area);
+            }
+
+            function createPopover(){
+                //var popover =  $("<a href=\"#\" id=\"popoverId\" class=\"btn\" rel=\"popover\"></a>");
+                var popover = $("#popoverId");
+
+                var nameId = "nameId";
+                var messageId = "messageId";
+                var createbtnId = "createbtnId";
+                var cancelbtnId = "cancelbtnId";
+
+                var options = {
+                    html:true,
+                    placement:"right",
+                    offset:5,
+                    //delay:{ show:500, hide:100 },
+                    title:function () {
+                        return 'New hotspot';
+                    },
+                    content: function () {
+                        var str = $(
+                                "<div class=\"controls\"> " +
+                                        "   <input id=\"" + nameId + "\" name=\"name\" type=\"text\" class=\"span3\" placeholder=\"Name\">  " +
+                                        "</div> " +
+                                        "<div class=\"controls\"> " +
+                                        "   <textarea id=\"" + messageId + "\" name=\"message\" class=\"span3\" placeholder=\"Description\" rows=\"5\"></textarea> " +
+                                        "</div> " +
+                                        "<div class=\"controls\"> " +
+                                        "   <button id=\"" + createbtnId + "\" class=\"btn\" >Ok</button> " +
+                                        "   <button id=\"" + cancelbtnId + "\" class=\"btn\">Cancel</button> " +
+                                        "</div> ");
+
+//                        $(str).find("#" + createbtnId).on('click',function(){
+//                            console.log('click CREATE');
+//
+//                            $(popover).data("name",$("#" + nameId).val());
+//                            $(popover).data("message",$("#" + messageId).val());
+//
+//                            $(popover).data("hotspot")._name = $("#" + nameId).val();
+//                            $(popover).data("hotspot")._desc = $("#" + messageId).val();
+//
+//                            //self.onClosePopover($(popover), "popoverCreate_ok");
+//
+//                            $(popover).popover('hide');
+//
+//                        })
+
+//                        $(str).find("#" + cancelbtnId).on('click',function(){
+//                            console.log('click CANCEL');
+//                            //self.onClosePopover($(popover), "popoverCreate_cancel");
+//                            $(popover).popover('hide');
+//                        })
+
+                        return str;
+                    }
+                }
+
+                $(popover).popover(options);
+
+                //$(popover).css("visibility","hidden");
+
+                //$("body").append(popover);
+
             }
 
         </script>

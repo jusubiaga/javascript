@@ -1,9 +1,15 @@
 CanvasMap = (function(){
-	
-	function CanvasMap(containerName, imageURL, readOnly){
 
+	function CanvasMap(containerName, imageURL, options){
 
-		this._readOnly = (readOnly === undefined ? false : readOnly);
+        // Set Properties
+        this._readOnly = false;
+        this._hideAreas = false;
+        if (options != null){
+            this._readOnly = (options.readOnly == null ? false : options.readOnly);
+            this._hideAreas = (options.hideAreas == null ? false : options.hideAreas);
+        }
+
 		this._areas = new Array();
 		
 		this._canvas = null;
@@ -30,6 +36,7 @@ CanvasMap = (function(){
 		this._addWhenFinishedDrawing = true;
 
 		this._pinImage = null;
+        this._canvasAreaColor = null;
 
 		if (this.createContext(containerName, imageURL))
 		{
@@ -37,12 +44,16 @@ CanvasMap = (function(){
 		}		
 	}
 
-    CanvasMap.prototype.__defineGetter__("onAreaClickHandler",function(){
-        return this._onAreaClick;
-    });
-
     CanvasMap.prototype.__defineSetter__("onAreaClickHandler",function(handler){
         this._onAreaClick = handler;
+    });
+
+    CanvasMap.prototype.__defineSetter__("onAreaCreatedHandler", function(handler){
+        this._onAreaCreated = handler;
+    });
+
+    CanvasMap.prototype.__defineSetter__("canvasAreaColor", function(canvasAreaColor){
+        this._canvasAreaColor = canvasAreaColor;
     })
 
 	CanvasMap.prototype.createContext = function(imageMapContainer, imageURL) {
@@ -64,7 +75,6 @@ CanvasMap = (function(){
 			var height = $(container).css('height');
 			var image = imageURL === null | imageURL === undefined ? "intel-logo.png" : imageURL;
 
-			//'http://www.allpeoplestalk.com/wp-content/uploads/2013/07/facts-about-the-human-body.jpg'
 			this._imageTag = document.createElement('img');
 			this._imageTag.setAttribute('src',image)
 			this._imageTag.setAttribute('id', 'backgroundImg');
@@ -74,19 +84,27 @@ CanvasMap = (function(){
 
 			container.appendChild(this._imageTag);
 
+            this._canvas = document.createElement('canvas');
+            this._canvas.setAttribute('width', width);
+            this._canvas.setAttribute('height', height);
+            this._canvas.setAttribute('id', 'canvas');
+            this._canvas.style.position = 'absolute';
+
+            this._canvasContext = this._canvas.getContext("2d");
+
 			// Drawing Canvas
 			this._drawCanvas = document.createElement('canvas');
 			this._drawCanvas.setAttribute('width', width);
 			this._drawCanvas.setAttribute('height', height);
 			this._drawCanvas.setAttribute('id', 'drawCanvas');
 			this._drawCanvas.style.position = 'absolute';
-			container.appendChild(this._drawCanvas);
+
 			this._drawCanvasContext = this._drawCanvas.getContext("2d");
 
-			this._canvas = this._drawCanvas;
-			this._canvasContext = this._drawCanvasContext; 			
+            container.appendChild(this._drawCanvas);
+            container.appendChild(this._canvas);
 
-			return true;
+            return true;
 		}
 
 		return false;
@@ -126,7 +144,6 @@ CanvasMap = (function(){
 			}else if (evt.button === 2)
 			{
 				var clickPoint = self.getMousePos(evt);
-				console.log("right " + clickPoint.x + " " + clickPoint.y);
 				var area = self.getAreaByPoint(clickPoint);
 				if (area != null)
 				{
@@ -140,7 +157,7 @@ CanvasMap = (function(){
 
 		// Drawing.
 		this._canvas.addEventListener('mousemove', function(evt) {
-			if(self._painting)
+            if(self._painting)
 			{
 			  	var endPoint = self.getMousePos(evt);
 			  	endPoint.x = endPoint.x - self._startPointPos.x;
@@ -180,9 +197,13 @@ CanvasMap = (function(){
 			    endPoint.x = endPoint.x - self._startPointPos.x;
 			    endPoint.y = endPoint.y - self._startPointPos.y;
 
+                if (endPoint.x < 0){
+
+                }
+
 			    if (!(endPoint.x === 0 && endPoint.y === 0) )
 			    {
-				    var newArea = new CanvasArea("Area Name", new CanvasPoint(self._startPointPos.x, self._startPointPos.y), new CanvasPoint(endPoint.x, endPoint.y));
+				    var newArea = new CanvasArea("Area Name", new CanvasPoint(self._startPointPos.x, self._startPointPos.y), new CanvasPoint(endPoint.x, endPoint.y),"Area Desc", self._canvasAreaColor, {hide:self._hideAreas});
 
 				    // Area Creating. Notify.
 				    if (self._onAreaCreating != null)
@@ -195,11 +216,6 @@ CanvasMap = (function(){
 				    	self.addArea(newArea);
 
 				    }
-    		  //   	self._areas.push(newArea);
-
-				    // self.redraw();			    	
-
-				    
 			    }
 
 				console.log("mouseup: " + endPoint.x + " " + endPoint.y);
@@ -226,14 +242,6 @@ CanvasMap = (function(){
             evt.preventDefault();
 
         })
-
-		// this._canvas.addEventListener('mouseleave', function(evt) {
-		// 	self._painting = false;
-		// 	var mousePos = self.getMousePos(evt);
-		// 	console.log("mouseleave: " + mousePos.x + " " + mousePos.y);
-
-		// }, false);
-
 
 		// Disable context menu
 		this._canvas.oncontextmenu = function(){return false;}
@@ -280,10 +288,6 @@ CanvasMap = (function(){
 
 			}
 
-
-
-
-			//area.draw(this._canvasContext);
 			this.redraw();
 		}
 	};
@@ -305,7 +309,24 @@ CanvasMap = (function(){
 		
 	};
 
-	CanvasMap.prototype.setAreas = function(areas) {
+    CanvasMap.prototype.removeArea2 = function(area) {
+
+        if (!area instanceof CanvasArea) return;
+
+        if (area != null)
+        {
+            this._areas.splice( this._areas.indexOf(area) ,1 );
+            this.redraw();
+
+            if (self._onAreaRemoved !== null)
+            {
+                self._onAreaRemoved(point);
+            }
+        }
+
+    };
+
+    CanvasMap.prototype.setAreas = function(areas) {
 		// TODO VAlidate Array
 		if(areas != null)
 		{
@@ -331,7 +352,7 @@ CanvasMap = (function(){
 					this._areas = [];
 					for (i in areas.areas)
 					{
-						this._areas.push(new CanvasArea(areas.areas[i]._name, areas.areas[i]._startPoint, areas.areas[i]._offsetPoint));
+						this._areas.push(new CanvasArea(areas.areas[i]._name, areas.areas[i]._startPoint, areas.areas[i]._offsetPoint), areas.areas[i]._desc, areas.areas[i]._areaColor, {hide:self._hideAreas});
 					}
 
 					this.redraw();
@@ -357,7 +378,7 @@ CanvasMap = (function(){
 
 	CanvasMap.prototype.getAreaByPoint = function(point) {
 		
-		for(var i in this._areas)
+		for(i in this._areas)
 		{
 			if (this._areas[i].isInArea(point) )
 			{
@@ -386,7 +407,8 @@ CanvasMap = (function(){
 
 	// Internal Function for clean canvas.
 	CanvasMap.prototype.cleanAll = function() {
-		this._canvasContext.clearRect(0, 0, this._canvasContext.canvas.width, this._canvasContext.canvas.height);
+        this._canvasContext.clearRect(0, 0, this._canvasContext.canvas.width, this._canvasContext.canvas.height);
+		this._drawCanvasContext.clearRect(0, 0, this._drawCanvasContext.canvas.width, this._drawCanvasContext.canvas.height);
 	};
 
 	// Function for remove all areas and clean canvas.
@@ -398,12 +420,11 @@ CanvasMap = (function(){
 	CanvasMap.prototype.drawArea = function(startPoint, endPoint) {
 		if (this._painting)
 		{
-			this._canvasContext.beginPath();
-			//this._canvasContext.clearRect(0, 0, this._canvasContext.canvas.width, this._canvasContext.canvas.height);			
-			this._canvasContext.clearRect(startPoint.x, startPoint.y, endPoint.x, endPoint.y);			
-			this._canvasContext.rect(startPoint.x,startPoint.y,endPoint.x,endPoint.y);
-			this._canvasContext.closePath();
-			this._canvasContext.stroke();
+			this._drawCanvasContext.beginPath();
+			this._drawCanvasContext.clearRect(0, 0, this._drawCanvasContext.canvas.width, this._drawCanvasContext.canvas.height);
+			this._drawCanvasContext.rect(startPoint.x,startPoint.y,endPoint.x,endPoint.y);
+			this._drawCanvasContext.closePath();
+			this._drawCanvasContext.stroke();
 		}
 	};
 
@@ -417,9 +438,42 @@ CanvasMap = (function(){
 		}		
 	};
 
+    CanvasMap.prototype.scale = function(percent){
+        var width = $("#canvas").width();
+        var height = $("#canvas").height();
+
+        width = width * percent / 100;
+        height = height * percent / 100;
+
+        $("#backgroundImg").css('width',width);
+        $("#backgroundImg").css('height',height);
+
+        $("#canvas").attr('width',width);
+        $("#canvas").attr('height',height);
+
+        $("#drawCanvas").attr('width',width);
+        $("#drawCanvas").attr('height',height);
+
+        for (var i in this._areas){
+            this._areas[i].scale(percent);
+        }
+        this.redraw();
+    }
+
+    CanvasMap.prototype.resize = function(newwidth, newheight){
+//        var width = $("#canvas").width();
+//        var height = $("#canvas").height();
+//
+//        var widthResult = newwidth - width
+//        var heightResult =
+//
+    }
+
+
 	// Internal function to get mouse position.
 	CanvasMap.prototype.getMousePos = function(evt) {
-		var rect = this._canvas.getBoundingClientRect();
+		var rect = this._drawCanvas.getBoundingClientRect();
+
         return {
           x: evt.clientX - rect.left,
           y: evt.clientY - rect.top
@@ -470,13 +524,27 @@ CanvasPoint = (function(){
 
 CanvasArea = (function(){
 
-	function CanvasArea(name, startPoint, offsetPoint, desc, eventMsg)
+    var DEFAULT_FILL_COLOR = "#62c462"; //"#ff0000"
+
+	function CanvasArea(name, startPoint, offsetPoint, desc, fillColor, options)
 	{
 		this._name = name;
 		this._desc = desc;
 		this._startPoint = startPoint;
 		this._offsetPoint = offsetPoint;
-        this._eventMsg = eventMsg;
+        this._fillColor = fillColor;
+        if (this._fillColor == undefined){
+            this._fillColor = DEFAULT_FILL_COLOR;
+        }
+
+        this._hide = false;
+
+        // Set Canvas Area options
+        if (options != null)
+        {
+            this._hide = (options.hide === undefined ? false : options.hide);
+        }
+
 	};
 
     CanvasArea.prototype.__defineGetter__("name",function(){
@@ -516,13 +584,43 @@ CanvasArea = (function(){
     })
 
 	CanvasArea.prototype.isInArea = function(point) {
-		if (point.x > this._startPoint.x && 
-			point.y > this._startPoint.y && 
-			point.x < this._startPoint.x + this._offsetPoint.x && 
-			point.y < this._startPoint.y + this._offsetPoint.y)
-		{
-			return true;
-		}
+        // TODO Improve this method!!
+
+        var p1 = {x: this._startPoint.x, y:this._startPoint.y};
+        var p2 = {x:this._startPoint.x + this._offsetPoint.x, y:this._startPoint.y + this._offsetPoint.y}
+
+        if (p1.x < p2.x && p1.y < p2.y){
+            // nothing
+        }
+
+        if (p1.x > p2.x && p1.y < p2.y){
+            var x = p1.x;
+            p1.x = p2.x;
+            p2.x = x;
+        }
+
+        if (p1.x < p2.x && p1.y > p2.y){
+            var y = p1.y;
+            p1.y = p2.y;
+            p2.y = y;
+        }
+
+        if (p1.x > p2.x && p1.y > p2.y){
+            var x = p1.x;
+            var y = p1.y;
+            p1.x = p2.x;
+            p1.y = p2.y;
+            p2.x = x;
+            p2.y = y;
+        }
+
+        if (point.x >= p1.x &&
+            point.y >= p1.y &&
+            point.x <= p2.x &&
+            point.y <= p2.y)
+        {
+            return true;
+        }
 
 		return false;
 	};
@@ -541,10 +639,13 @@ CanvasArea = (function(){
 		context.clearRect(this._startPoint.x,this._startPoint.y,this._offsetPoint.x,this._offsetPoint.y);
 
 		context.beginPath();
-		context.globalAlpha=0.3;
-		context.fillStyle="#00CC33";		
+        if (this._hide){
+            context.globalAlpha=0;
+        }else{
+            context.globalAlpha=0.4;
+        }
+        context.fillStyle = this._fillColor;
     	context.fillRect(this._startPoint.x,this._startPoint.y,this._offsetPoint.x,this._offsetPoint.y);
-		//context.rect(this._startPoint.x,this._startPoint.y,this._offsetPoint.x,this._offsetPoint.y);
 
 		context.closePath();
 		context.stroke();
@@ -564,6 +665,13 @@ CanvasArea = (function(){
 
 		return false;
 	};
+
+    CanvasArea.prototype.scale = function(percent){
+        this._startPoint.x = this._startPoint.x * percent / 100;
+        this._startPoint.y = this._startPoint.y * percent / 100;
+        this._offsetPoint.x = this._offsetPoint.x * percent / 100;
+        this._offsetPoint.y = this._offsetPoint.y * percent / 100;
+    }
 
 	return CanvasArea;
 

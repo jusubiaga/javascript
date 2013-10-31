@@ -4,6 +4,7 @@
     <list default="true" id="d9bec177-b37c-4da1-9d4b-d663a947f186" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/canvasMap/lib/canvasMap.js" afterPath="$PROJECT_DIR$/canvasMap/lib/canvasMap.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/canvasMap/canvasMapSample.html" afterPath="$PROJECT_DIR$/canvasMap/canvasMapSample.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="repo.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,7 +30,25 @@
       <file leaf-file-name="canvasMap.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/canvasMap/lib/canvasMap.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="481" column="34" selection-start="11214" selection-end="11214" vertical-scroll-proportion="0.422452" vertical-offset="7891" max-vertical-offset="9775">
+            <state line="642" column="34" selection-start="15705" selection-end="15705" vertical-scroll-proportion="1.125554" vertical-offset="10152" max-vertical-offset="11611">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="jqmSample.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/canvasMap/jqmSample.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="901">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="idrSample.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/canvasMap/idrSample.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="30" column="7" selection-start="927" selection-end="927" vertical-scroll-proportion="0.0" vertical-offset="510" max-vertical-offset="612">
               <folding />
             </state>
           </provider>
@@ -39,9 +58,7 @@
         <entry file="file://$PROJECT_DIR$/canvasMap/canvasMapSampleMobile.html">
           <provider selected="true" editor-type-id="text-editor">
             <state line="59" column="0" selection-start="1798" selection-end="1798" vertical-scroll-proportion="-10.307693" vertical-offset="735" max-vertical-offset="1428">
-              <folding>
-                <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -49,10 +66,17 @@
       <file leaf-file-name="canvasMapSample.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/canvasMap/canvasMapSample.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="104" selection-start="696" selection-end="696" vertical-scroll-proportion="-3.6666667" vertical-offset="0" max-vertical-offset="1139">
-              <folding>
-                <element signature="n#style#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
+            <state line="99" column="5" selection-start="3871" selection-end="3871" vertical-scroll-proportion="-5.076923" vertical-offset="1551" max-vertical-offset="2635">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="popoverSample.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/canvasMap/popoverSample.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="26" column="45" selection-start="802" selection-end="802" vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="1666">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -75,8 +99,10 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/canvasMap/canvasMapSample.html" />
         <option value="$PROJECT_DIR$/canvasMap/canvasMapSampleMobile.html" />
+        <option value="$PROJECT_DIR$/canvasMap/popoverSample.html" />
+        <option value="$PROJECT_DIR$/canvasMap/idrSample.html" />
+        <option value="$PROJECT_DIR$/canvasMap/canvasMapSample.html" />
         <option value="$PROJECT_DIR$/canvasMap/lib/canvasMap.js" />
       </list>
     </option>
@@ -170,8 +196,44 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="DefaultHtmlFileTemplate" value="Html5" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\workspace\javascript\repo\canvasMap" />
+    </key>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
+      <option name="VMOptions" />
+      <option name="arguments" />
+      <option name="filePath" />
+      <option name="name" value="Dart" />
+      <option name="saveOutputToFile" value="false" />
+      <option name="showConsoleOnStdErr" value="false" />
+      <option name="showConsoleOnStdOut" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
+      <option name="VMOptions" />
+      <option name="arguments" />
+      <option name="filePath" />
+      <option name="scope" value="ALL" />
+      <option name="testName" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" singleton="true" config-file="">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" working-dir="">
+      <browser start="false" url="" with-js-debugger="false" />
+      <method />
+    </configuration>
     <list size="0" />
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
@@ -187,23 +249,23 @@
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.256875" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -218,27 +280,114 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/canvasMap/popoverSample.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="45" selection-start="802" selection-end="802" vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="1666">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/canvasMap/lib/canvasMap.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="260" column="47" selection-start="6756" selection-end="6756" vertical-scroll-proportion="0.0" vertical-offset="4042" max-vertical-offset="10557">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/canvasMap/canvasMapSampleMobile.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="59" column="0" selection-start="1798" selection-end="1798" vertical-scroll-proportion="0.0" vertical-offset="735" max-vertical-offset="1428">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/canvasMap/canvasMapSample.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="104" selection-start="696" selection-end="696" vertical-scroll-proportion="-3.6666667" vertical-offset="0" max-vertical-offset="1139">
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
+        <state line="31" column="12" selection-start="1320" selection-end="1320" vertical-scroll-proportion="0.0" vertical-offset="208" max-vertical-offset="1173">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/canvasMap/lib/canvasMap.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="533" column="0" selection-start="12518" selection-end="13021" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="10047">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/canvasMap/canvasMapSampleMobile.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="59" column="0" selection-start="1798" selection-end="1798" vertical-scroll-proportion="0.0" vertical-offset="735" max-vertical-offset="1428">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/canvasMap/canvasMapSample.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="104" selection-start="696" selection-end="696" vertical-scroll-proportion="0.0" vertical-offset="187" max-vertical-offset="1139">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/canvasMap/lib/canvasMap.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="199" column="99" selection-start="5457" selection-end="5478" vertical-scroll-proportion="0.0" vertical-offset="2907" max-vertical-offset="9758">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/canvasMap/canvasMapSampleMobile.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="59" column="0" selection-start="1798" selection-end="1798" vertical-scroll-proportion="0.0" vertical-offset="735" max-vertical-offset="1428">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/canvasMap/canvasMapSample.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="104" selection-start="696" selection-end="696" vertical-scroll-proportion="0.0" vertical-offset="187" max-vertical-offset="1139">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/canvasMap/popoverSample.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="45" selection-start="802" selection-end="802" vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="1666">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/canvasMap/jqmSample.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="901">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/canvasMap/idrSample.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="7" selection-start="927" selection-end="927" vertical-scroll-proportion="0.0" vertical-offset="510" max-vertical-offset="612">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/canvasMap/canvasMapSampleMobile.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="59" column="0" selection-start="1798" selection-end="1798" vertical-scroll-proportion="-10.307693" vertical-offset="735" max-vertical-offset="1428">
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/canvasMap/canvasMapSample.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="99" column="5" selection-start="3871" selection-end="3871" vertical-scroll-proportion="-5.076923" vertical-offset="1551" max-vertical-offset="2635">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/canvasMap/lib/canvasMap.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="481" column="34" selection-start="11214" selection-end="11214" vertical-scroll-proportion="0.422452" vertical-offset="7891" max-vertical-offset="9775">
+        <state line="642" column="34" selection-start="15705" selection-end="15705" vertical-scroll-proportion="1.125554" vertical-offset="10152" max-vertical-offset="11611">
           <folding />
         </state>
       </provider>
