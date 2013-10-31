@@ -10,6 +10,10 @@ CanvasMap = (function(){
             this._hideAreas = (options.hideAreas == null ? false : options.hideAreas);
         }
 
+        this._originalWidth;
+        this._originalHeight;
+        this._currentScale = 100;
+
 		this._areas = new Array();
 		
 		this._canvas = null;
@@ -71,22 +75,24 @@ CanvasMap = (function(){
 		if (container !== null && container !== undefined)
 		{
 
-			var width = $(container).css('width');
-			var height = $(container).css('height');
+			this._originalWidth = $(container).width();
+			this._originalHeight = $(container).height();
 			var image = imageURL === null | imageURL === undefined ? "intel-logo.png" : imageURL;
 
 			this._imageTag = document.createElement('img');
 			this._imageTag.setAttribute('src',image)
 			this._imageTag.setAttribute('id', 'backgroundImg');
 			this._imageTag.style.position = 'absolute';
-			this._imageTag.style.width = width;
-			this._imageTag.style.height = height;
+			//this._imageTag.style.width = this._originalWidth + "px";
+			//this._imageTag.style.height = this._originalHeight + "px";
+            $(this._imageTag).css("width", this._originalWidth);
+            $(this._imageTag).css("height", this._originalHeight);
 
 			container.appendChild(this._imageTag);
 
             this._canvas = document.createElement('canvas');
-            this._canvas.setAttribute('width', width);
-            this._canvas.setAttribute('height', height);
+            this._canvas.setAttribute('width', this._originalWidth);
+            this._canvas.setAttribute('height', this._originalHeight);
             this._canvas.setAttribute('id', 'canvas');
             this._canvas.style.position = 'absolute';
 
@@ -94,8 +100,8 @@ CanvasMap = (function(){
 
 			// Drawing Canvas
 			this._drawCanvas = document.createElement('canvas');
-			this._drawCanvas.setAttribute('width', width);
-			this._drawCanvas.setAttribute('height', height);
+			this._drawCanvas.setAttribute('width', this._originalWidth);
+			this._drawCanvas.setAttribute('height', this._originalHeight);
 			this._drawCanvas.setAttribute('id', 'drawCanvas');
 			this._drawCanvas.style.position = 'absolute';
 
@@ -203,7 +209,7 @@ CanvasMap = (function(){
 
 			    if (!(endPoint.x === 0 && endPoint.y === 0) )
 			    {
-				    var newArea = new CanvasArea("Area Name", new CanvasPoint(self._startPointPos.x, self._startPointPos.y), new CanvasPoint(endPoint.x, endPoint.y),"Area Desc", self._canvasAreaColor, {hide:self._hideAreas});
+				    var newArea = new CanvasArea("Area Name", new CanvasPoint(self._startPointPos.x, self._startPointPos.y), new CanvasPoint(endPoint.x, endPoint.y),"Area Desc", self._canvasAreaColor, {hide:self._hideAreas, scale:self._currentScale});
 
 				    // Area Creating. Notify.
 				    if (self._onAreaCreating != null)
@@ -352,7 +358,7 @@ CanvasMap = (function(){
 					this._areas = [];
 					for (i in areas.areas)
 					{
-						this._areas.push(new CanvasArea(areas.areas[i]._name, areas.areas[i]._startPoint, areas.areas[i]._offsetPoint), areas.areas[i]._desc, areas.areas[i]._areaColor, {hide:self._hideAreas});
+						this._areas.push(new CanvasArea(areas.areas[i]._name, areas.areas[i]._startPoint, areas.areas[i]._offsetPoint), areas.areas[i]._desc, areas.areas[i]._areaColor, {hide:self._hideAreas, scale:self._currentScale});
 					}
 
 					this.redraw();
@@ -439,11 +445,9 @@ CanvasMap = (function(){
 	};
 
     CanvasMap.prototype.scale = function(percent){
-        var width = $("#canvas").width();
-        var height = $("#canvas").height();
-
-        width = width * percent / 100;
-        height = height * percent / 100;
+        this._currentScale = percent;
+        var width = this._originalWidth * percent / 100;
+        var height = this._originalHeight * percent / 100;
 
         $("#backgroundImg").css('width',width);
         $("#backgroundImg").css('height',height);
@@ -461,12 +465,12 @@ CanvasMap = (function(){
     }
 
     CanvasMap.prototype.resize = function(newwidth, newheight){
-//        var width = $("#canvas").width();
-//        var height = $("#canvas").height();
-//
-//        var widthResult = newwidth - width
-//        var heightResult =
-//
+        var width = $("#canvas").width();
+        var height = $("#canvas").height();
+
+        var widthResult = newwidth * 100 / width;
+        var heightResult = newheight * 100 / height;
+
     }
 
 
@@ -530,6 +534,8 @@ CanvasArea = (function(){
 	{
 		this._name = name;
 		this._desc = desc;
+        this._originalStartPoint = new CanvasPoint(startPoint.x, startPoint.y);
+        this._originalOffsetPoint = new CanvasPoint(offsetPoint.x, offsetPoint.y);
 		this._startPoint = startPoint;
 		this._offsetPoint = offsetPoint;
         this._fillColor = fillColor;
@@ -538,13 +544,18 @@ CanvasArea = (function(){
         }
 
         this._hide = false;
+        var currentScale = 100;
 
         // Set Canvas Area options
         if (options != null)
         {
             this._hide = (options.hide === undefined ? false : options.hide);
+            currentScale = (options.scale === undefined ? 100 : options.scale);
         }
 
+        if (currentScale != 100){
+            this.rescale(currentScale);
+        }
 	};
 
     CanvasArea.prototype.__defineGetter__("name",function(){
@@ -666,11 +677,18 @@ CanvasArea = (function(){
 		return false;
 	};
 
+    CanvasArea.prototype.rescale = function(scale){
+        this._originalStartPoint.x = this._originalStartPoint.x * 100 / scale;
+        this._originalStartPoint.y = this._originalStartPoint.y * 100 / scale;
+        this._originalOffsetPoint.x = this._originalOffsetPoint.x * 100 / scale;
+        this._originalOffsetPoint.y = this._originalOffsetPoint.y * 100 / scale;
+    }
+
     CanvasArea.prototype.scale = function(percent){
-        this._startPoint.x = this._startPoint.x * percent / 100;
-        this._startPoint.y = this._startPoint.y * percent / 100;
-        this._offsetPoint.x = this._offsetPoint.x * percent / 100;
-        this._offsetPoint.y = this._offsetPoint.y * percent / 100;
+        this._startPoint.x = this._originalStartPoint.x * percent / 100;
+        this._startPoint.y = this._originalStartPoint.y * percent / 100;
+        this._offsetPoint.x = this._originalOffsetPoint.x * percent / 100;
+        this._offsetPoint.y = this._originalOffsetPoint.y * percent / 100;
     }
 
 	return CanvasArea;
