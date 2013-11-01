@@ -464,16 +464,6 @@ CanvasMap = (function(){
         this.redraw();
     }
 
-    CanvasMap.prototype.resize = function(newwidth, newheight){
-        var width = $("#canvas").width();
-        var height = $("#canvas").height();
-
-        var widthResult = newwidth * 100 / width;
-        var heightResult = newheight * 100 / height;
-
-    }
-
-
 	// Internal function to get mouse position.
 	CanvasMap.prototype.getMousePos = function(evt) {
 		var rect = this._drawCanvas.getBoundingClientRect();

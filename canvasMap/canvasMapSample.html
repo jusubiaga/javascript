@@ -23,7 +23,10 @@
 
             <div>
                 <div id="canvasMapContainer1" style="border:1px solid #000000; width: 288px; height: 413px;"></div>
-                <div class="events-section"><div class="event-item" data-event="when area click do" data-symbol="item2" id="jsPlumb_1_2"><img title="when area click do" src="lightning-16.png"></div></div>
+                <div class="btn-group" style="float: right">
+                    <button id="zoomout" type="button" class="btn btn-default">+</button>
+                    <button id="zoomin" type="button" class="btn btn-default">-</button>
+                </div>
             </div>
 
             <!--<div id="canvasMapContainer2" style="border:1px solid #000000; width: 288px; height: 413px;"></div>-->
@@ -38,6 +41,7 @@
             var container2 = null;
 
             $(function(){
+                scale = 100;
         		init();
         	});
             // application code here!
@@ -66,6 +70,16 @@
 //                container2.onAreaCreatedHandler = function(){
 //                    alert("AreaCreated2");
 //                }
+
+                $("#zoomout").on("click", function(){
+                    scale += 10;
+                    container1.scale(scale);
+                })
+
+                $("#zoomin").on("click", function(){
+                    scale -= 10;
+                    container1.scale(scale);
+                })
 
                 // default Areas ..
                 //defaultAreas();
